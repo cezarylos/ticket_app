@@ -1,95 +1,58 @@
-import Image from 'next/image'
-import styles from './page.module.css'
+"use client"; // this is a client component 👈🏽
+
+import './App.global.css';
+import { useEffect } from 'react';
+import Web3 from 'web3';
 
 export default function Home() {
+
+  // const connectMetamaskMobile = () => {
+  //   const dappUrl = window.location.href.split('//')[1].split('/')[0];
+  //   const metamaskAppDeepLink = 'https://metamask.app.link/dapp/' + 'opensea.io';
+  //   window.open(metamaskAppDeepLink, '_self');
+  // };
+
+  useEffect(() => {
+    if (!window) {
+      return;
+    }
+
+    console.log(123);
+    const init = async () => {
+      const web3 = new Web3(window.ethereum);
+
+// Get the current account
+      const accounts = await web3.eth.getAccounts();
+      const currentAccount = accounts[0];
+
+// Sign the message using the personal_sign method
+      const message = 'Hello, world!'; // Replace this with your own message
+      const signature = await web3.eth.personal.sign(message, currentAccount);
+
+      const res = await fetch('/api/test', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ signature, message, address: '0xb10Ad8a88818d1E46461C86711069141b1AC4769' })
+      });
+
+      const data = await res.json();
+
+      console.log(data);
+    };
+    init().finally();
+  }, [window]);
+
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://beta.nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore the Next.js 13 playground.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
-  )
+    <></>
+    // <MetaMaskContextProvider>
+    //   <div className={styles.appContainer}>
+    //     <Navigation />
+    //     <Display />
+    //     <MetaMaskError />
+    //     <button onClick={connectMetamaskMobile}>TEST</button>
+    //   </div>
+    // </MetaMaskContextProvider>
+  );
 }
