@@ -34,7 +34,7 @@ export default function Home() {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ signature, message, address: '0xb10Ad8a88818d1E46461C86711069141b1AC4769' })
+        body: JSON.stringify({ signature, message, address: currentAccount })
       });
 
       const data = await res.json();

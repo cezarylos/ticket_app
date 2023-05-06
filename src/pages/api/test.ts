@@ -19,7 +19,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       console.log(address);
 
 
-      if (recoveredAddress.toLowerCase() === '0xb10Ad8a88818d1E46461C86711069141b1AC4769'.toLowerCase()) {
+      if (recoveredAddress.toLowerCase() === address.toLowerCase()) {
         // Signature is valid
         res.status(201).json({})
         return;
