@@ -13,24 +13,12 @@ const Checkout = function({ address }: { address: string }) {
   }
   return <WinterCheckout
     showModal={true}
-    projectId={'12585' as any}
-    extraMintParams={{ '_amount': 1 }}
     priceFunctionParams={{ '_amount': 1 }}
-    // optional
     walletAddress={address}
-    // optional
-    // email={customersEmail}
-    contractAddress={'0x45F0ee3a420941ae88A29e08227A2612264Ade54'}
-    tokenId={'1'}
-    // This will be the domain of the marketplace you want to pull the orders from
     orderSource={'opensea.io'}
-    // This will be the domain of the marketplace you want the order to be fulfilled on
     fillSource={'opensea.io'}
     production={false}
-
-    // Language - supports spanish, chinese, chineseT (chinese traditional), japanese, korean, french
     language={'english'}
-    // If you want to customize the css of the checkout widget
     appearance={{
       leftBackgroundColor: '#131317',
       rightBackgroundColor: '#22222d',
@@ -73,7 +61,7 @@ export default function Home() {
 
       const providerUrl = window.ethereum.chainId === '0x89' ? 'https://rpc-mainnet.matic.network' : 'https://rpc-mumbai.maticvigil.com';
 
-      const res = await fetch(`/api/${EndpointsEnum.IS_TOKEN_HOLDERS}/0x45F0ee3a420941ae88A29e08227A2612264Ade54?providerUrl=${providerUrl}&address=${currentAccount}`, {
+      const res = await fetch(`/api/${EndpointsEnum.IS_TOKEN_HOLDERS}/0x66cbbc9edf414db2ef5c871016fcd09d7e8897cc?providerUrl=${providerUrl}&address=${currentAccount}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json'
